@@ -19,7 +19,7 @@ describe('get-voice', function(){
     getVoice('i love you so much', function(err, buf){
       assert.equal(err, null)
       assert(Buffer.isBuffer(buf))
-      assert.equal(buf.length, 6912)
+      assert.equal(buf.length, 6480)
       fs.writeFileSync(f('./2.mp3'), buf)
       done()
     })
@@ -37,6 +37,18 @@ describe('get-voice', function(){
       assert.equal(err, null)
       assert(Buffer.isBuffer(buf))
       assert.equal(buf.length, 864)
+      fs.writeFileSync(f('./3.mp3'), buf)
+      done()
+    })
+  })
+
+  // https://github.com/fritx/get-voice/pull/1
+  // thanks @truerenton
+  it('supports lang param', function(done){
+    getVoice('я люблю тебя так сильно', 'ru', function(err, buf){
+      assert.equal(err, null)
+      assert(Buffer.isBuffer(buf))
+      assert.equal(buf.length, 8064)
       fs.writeFileSync(f('./3.mp3'), buf)
       done()
     })
