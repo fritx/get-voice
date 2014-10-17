@@ -1,9 +1,13 @@
 var request = require('request')
 
-module.exports = function(text, cb){
-  // detects lang
-  var lang = 'zh-CN'
-  if (/^[a-z]/i.test(text)) lang = 'en'
+module.exports = function(text, lang, cb){
+  var isFunc = typeof lang === 'function';
+  if(!lang || isFunc) {
+    lang = detectLang(text);
+  }
+  cb = isFunc ? lang : cb;
+
+  console.log('lang', lang);
 
   // fix empty text
   // for a 1K empty voice
@@ -27,11 +31,14 @@ module.exports = function(text, cb){
   })
 }
 
+function detectLang(text) {
+  return /^[a-z]/i.test(text) ? 'en' : 'zh-CN';
+}
 
 function getUrl(text, lang){
   // build google url
   var url = [
-    'http://translate.google.cn/translate_tts?ie=UTF-8&q=',
+    'http://translate.google.com/translate_tts?ie=UTF-8&q=',
     text,
     '&tl=' + lang
   ].join('')
