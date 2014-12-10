@@ -1,6 +1,6 @@
 {
   "name": "get-voice",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Get human voice from translate.google.cn",
   "repository": "git@github.com:fritx/get-voice.git",
   "dependencies": {

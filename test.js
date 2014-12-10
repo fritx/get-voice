@@ -9,7 +9,7 @@ describe('get-voice', function(){
     getVoice('你是风儿我是啥', function(err, buf){
       assert.equal(err, null)
       assert(Buffer.isBuffer(buf))
-      assert.equal(buf.length, 7632)
+      checkVoice(buf, 7632)
       fs.writeFileSync(f('./1.mp3'), buf)
       done()
     })
@@ -19,7 +19,8 @@ describe('get-voice', function(){
     getVoice('i love you so much', function(err, buf){
       assert.equal(err, null)
       assert(Buffer.isBuffer(buf))
-      assert.equal(buf.length, 6480)
+      // 6912, 6480, 7776
+      checkVoice(buf, 7776)
       fs.writeFileSync(f('./2.mp3'), buf)
       done()
     })
@@ -36,7 +37,7 @@ describe('get-voice', function(){
     getVoice(' ', function(err, buf){
       assert.equal(err, null)
       assert(Buffer.isBuffer(buf))
-      assert.equal(buf.length, 864)
+      checkVoice(buf, 864)
       fs.writeFileSync(f('./3.mp3'), buf)
       done()
     })
@@ -56,6 +57,12 @@ describe('get-voice', function(){
 
 })
 
+
+function checkVoice(buf, len) {
+  assert.ok(
+    Math.abs(buf.length - len) < len*0.2
+  )
+}
 
 function f(pth){
   return path.resolve(__dirname, pth)
