@@ -37,7 +37,7 @@ function getUrl(text, lang){
   // build google url
   var url = [
     'http://translate.google.cn/translate_tts?ie=UTF-8&q=',
-    text,
+    encodeURIComponent(text),
     '&tl=' + lang
   ].join('')
   return url
